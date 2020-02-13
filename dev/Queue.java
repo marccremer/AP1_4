@@ -7,6 +7,7 @@ public class Queue{
 	private int 	nextFree;
 	private int[]	arr;
 	private int 	emptyslots;
+	private int 	n_elements;
 
 	public static void main(String[] args) {
 		
@@ -34,39 +35,42 @@ public class Queue{
 	}
 
 	public int dequeue(){
-		System.out.println("emp:"+emptyslots);
+		//System.out.println("emp:"+emptyslots);
 		if (is_empty()) {
 			System.out.println("Empty Queue");
 			return -1;
 		}
 		int val = arr[0];
-		for (int i = 1; i < nextFree; i++) {
+		for (int i = 1 ;i <= n_elements-1;i++ ) {
 			arr[i-1] = arr[i];
 		}
+		arr[n_elements-1] = 0;
 		emptyslots++;
-		nextFree--;
+		n_elements--;
 		return val;
+
 	}
 
 	public boolean enqueue(int n){
 		//check if we got space
 		if (is_full()) {
 			return false;
-		}
-		//no shifting necesary if we only got 1 spot left
-		if (emptyslots == 1) {
-			emptyslots--;
-			nextFree++;
-			arr[0] = n;
-			return true;
-		}
-		//shift all the other items then enter the new one 
-		for (int i = nextFree ;i >= 0; i--) {
-			arr[i+1] = arr[i];
-		}
+		}else if (is_empty()) {
 		emptyslots--;
 		nextFree++;
+		n_elements++;
 		arr[0] = n;
+		}else {
+			for (int i = (n_elements);i > 0 ;i-- ) {
+				arr[n_elements] = arr[n_elements-1];
+			}
+		n_elements++;
+		emptyslots--;
+		arr[0] = n;
+		}
+
+
+
 		return true;
 	}
 
@@ -74,6 +78,7 @@ public class Queue{
 		this.arr = new int[size];
 		this.nextFree = 0;
 		this.emptyslots = size;
+		this.n_elements = 0;
 	}
 
 	public void testing(){
