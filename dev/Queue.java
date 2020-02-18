@@ -4,16 +4,16 @@ package schlange;
 
 public class Queue{
 
-	private int 	nextFree;
 	private int[]	arr;
 	private int 	emptyslots;
-	private int 	n_elements;
+	public int 	n_elements;
 
 	public static void main(String[] args) {
 		
 	}
 
 	public boolean is_empty(){
+		//check if the Queue is empty
 		if (emptyslots == arr.length) {
 			return true;
 		}
@@ -21,6 +21,7 @@ public class Queue{
 	}
 
 	public boolean is_full(){
+		//check if the Queue is full
 		if (emptyslots == 0) {
 			return true;
 		}
@@ -28,22 +29,22 @@ public class Queue{
 	}
 
 	public void printarray(){
+		//print the Queue elements
 		System.out.print("The array:");
 		for (int elment :arr ) {
 			System.out.print(elment+ " ");
 		}
+		System.out.println("|");
 	}
 
 	public int dequeue(){
-		//System.out.println("emp:"+emptyslots);
+		//returns the element that last entered the Queue or -1 if the queue is empty
 		if (is_empty()) {
-			System.out.println("Empty Queue");
+
+			System.out.println("Empty Queue!!");
 			return -1;
 		}
-		int val = arr[0];
-		for (int i = 1 ;i <= n_elements-1;i++ ) {
-			arr[i-1] = arr[i];
-		}
+		int val = arr[n_elements-1];
 		arr[n_elements-1] = 0;
 		emptyslots++;
 		n_elements--;
@@ -52,17 +53,21 @@ public class Queue{
 	}
 
 	public boolean enqueue(int n){
+		//takes an integer to put in the Queue and returns true if succesfull
+
 		//check if we got space
 		if (is_full()) {
 			return false;
 		}else if (is_empty()) {
+		//dont shift if its empty
 		emptyslots--;
-		nextFree++;
 		n_elements++;
 		arr[0] = n;
 		}else {
-			for (int i = (n_elements);i > 0 ;i-- ) {
-				arr[n_elements] = arr[n_elements-1];
+		//shift the other elements to make space at the front
+			for (int i = (n_elements);i > 0 ;--i ) {
+				arr[i] = arr[i-1];
+				printarray();
 			}
 		n_elements++;
 		emptyslots--;
@@ -75,8 +80,8 @@ public class Queue{
 	}
 
 	public Queue(int size){
+		//creeate an array of size "size" and set atributes
 		this.arr = new int[size];
-		this.nextFree = 0;
 		this.emptyslots = size;
 		this.n_elements = 0;
 	}

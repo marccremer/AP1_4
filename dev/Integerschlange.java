@@ -12,27 +12,32 @@ public class Integerschlange{
 
 	public static void main(String[] args) {
 		Queue ss = new Queue(10);
-		ss.testing();
-		for (int i = 0; i<13  ; i++) {
-		if (ss.enqueue(2)) {
-			println(2);
-		}else{
-			ss.printarray();
-			println("");
-		}
-		}
+		println("We create a Queue of size 10:");
+		ss.printarray();
 		int tmp;
+		println("overfilling:\n");
+		//over fill array
+		for (int i = 0; i<13  ; i++) {
+			tmp = (i+1)*2;
+			if (ss.enqueue(tmp)) {
+				println(tmp+" wurde in die Schlange geschoben.Wir haben elemente: "+ss.n_elements);
+				ss.printarray();
+			}else{
+				ss.printarray();
+				println("");
+			}
+		}
+		println("\novertaking:");
+		//take more than is in the array
 		for (int i = 0; i<13  ; i++) {
 			ss.printarray();
 			tmp = ss.dequeue();
 			if (tmp != -1) {
-				println(tmp);
+				println(tmp+" verlässt die Schlange");
 			}else{
-				println("empty");
+				println("Da ist nichts zu holen.");
 			}
 		}
-
-
 	}
 }
 	
