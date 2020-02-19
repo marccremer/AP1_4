@@ -14,6 +14,7 @@ public class Schlange {
 		Dies macht aber keinen Sinn,da eine neue Schlanger immer leer ist und
 		der nextfree wert daher nur von der schlangengroesse abhängt*/
 		this.arr = new Taxi[size];
+		this.size = size;
 		this.nextfree = size-1;
 	}
 
@@ -28,13 +29,29 @@ public class Schlange {
 		return leaving;
 	}
 	public void enqueue(Taxi entering){
-		arr[nextfree] = entering;
+		String output;
+		if (nextfree < 0) {
+			output = "Das Taxi:"
+					+entering.nummer()
+					+", "
+					+entering.fahrer()
+					+", "
+					+entering.kennzeichen()
+					+" kann nicht einfahren! Der Taxistand ist pick packe voll!";
+			System.out.println(output);
+		}else{
+			arr[nextfree] = entering;
+			nextfree--;
+		}
 	}
 	public void ausgeben(){
-		int index = 0;
+		int taxicounter = 0;
 		String current;
+
+
 		for (int i = 0;i < arr.length; i++) {
 			if (arr[i] != null) {
+				taxicounter++;
 				current = "Das Taxi "
 					+ arr[i].nummer()
 					+", "
@@ -42,9 +59,16 @@ public class Schlange {
 					+", "
 					+arr[i].kennzeichen()
 					+" fährt auf Platz "
-					+ i;
+					+ (i+1);
 				System.out.println(current);
+				//System.out.println("line "+i);
 			}
+
+		}
+
+		if (taxicounter == 0) {
+			System.out.println("Kein Taxi im Stand.\n Alle " + size + " Plätze frei.");
+
 		}
 	}
 }
