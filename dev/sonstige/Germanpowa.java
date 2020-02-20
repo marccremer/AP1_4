@@ -2,7 +2,7 @@
 Marc Cremer 2020 */
 
 import java.util.Scanner;	//Scanner
-import java.util.Locale;
+import java.util.Locale;	//Locale
 
 
 public class Germanpowa  {
